@@ -1,0 +1,91 @@
+﻿@model IEnumerable<ProjectSupportSystem.Models.Support>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Destek</h1>
+
+<p>
+    <a asp-action="Create">Yeni Ekler</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                 Türü
+            </th>
+            <th>
+                Adı
+            </th>
+            <th>
+                Kimler Başvurabilir?
+            </th>
+            <th>
+                Amacı
+            </th>
+            <th>
+                Başvuru Süreci ve Şekli
+            </th>
+            <th>
+                 Süresi (Ay)
+            </th>
+            <th>
+                Oranı (%)
+            </th>
+            <th>
+                Miktarı (TL)
+            </th>
+            <th>
+                Kodu
+            </th>
+          
+            <th>
+                Açıklaması
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupportType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupportName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WhoApply)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Goal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationProcessAndCondition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupportDuration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupportPercentage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupportAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Düzenle</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Detaylar</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Sil</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

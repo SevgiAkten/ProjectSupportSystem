@@ -1,0 +1,95 @@
+﻿@model IEnumerable<ProjectSupportSystem.Models.Support>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SupportType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupportName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WhoApply)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Goal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationProcessAndCondition)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupportDuration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupportPercentage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupportAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupportSupElementID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupportType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupportName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WhoApply)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Goal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationProcessAndCondition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupportDuration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupportPercentage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupportAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupportSupElementID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
