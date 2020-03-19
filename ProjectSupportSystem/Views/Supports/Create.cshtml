@@ -1,0 +1,83 @@
+﻿@model ProjectSupportSystem.Models.Support
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Support</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SupportType" class="control-label"></label>
+                <input asp-for="SupportType" class="form-control" />
+                <span asp-validation-for="SupportType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SupportName" class="control-label"></label>
+                <input asp-for="SupportName" class="form-control" />
+                <span asp-validation-for="SupportName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WhoApply" class="control-label"></label>
+                <input asp-for="WhoApply" class="form-control" />
+                <span asp-validation-for="WhoApply" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Goal" class="control-label"></label>
+                <input asp-for="Goal" class="form-control" />
+                <span asp-validation-for="Goal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApplicationProcessAndCondition" class="control-label"></label>
+                <input asp-for="ApplicationProcessAndCondition" class="form-control" />
+                <span asp-validation-for="ApplicationProcessAndCondition" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SupportDuration" class="control-label"></label>
+                <input asp-for="SupportDuration" class="form-control" />
+                <span asp-validation-for="SupportDuration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SupportPercentage" class="control-label"></label>
+                <input asp-for="SupportPercentage" class="form-control" />
+                <span asp-validation-for="SupportPercentage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SupportAmount" class="control-label"></label>
+                <input asp-for="SupportAmount" class="form-control" />
+                <span asp-validation-for="SupportAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Code" class="control-label"></label>
+                <input asp-for="Code" class="form-control" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SupportSupElementID" class="control-label"></label>
+                <input asp-for="SupportSupElementID" class="form-control" />
+                <span asp-validation-for="SupportSupElementID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

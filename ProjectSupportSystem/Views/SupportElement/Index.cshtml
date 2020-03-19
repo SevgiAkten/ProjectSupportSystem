@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ProjectSupportSystem.Models.SupportElement>
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<h1>Destek Unsurları</h1>
+
+<p>
+	<a asp-action="Create">Yeni Ekle</a>
+</p>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				Adı
+			</th>
+			<th>
+				Oranı (%)
+			</th>
+			<th>
+				Miktarı (TL)
+			</th>
+			<th>
+				Açıklama
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.SupportElementName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.SupportElementPercentage)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.SupportElementAmount)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Description)
+				</td>
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.ID">Düzenle</a> |
+					<a asp-action="Details" asp-route-id="@item.ID">Detaylar</a> |
+					<a asp-action="Delete" asp-route-id="@item.ID">Sil</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
