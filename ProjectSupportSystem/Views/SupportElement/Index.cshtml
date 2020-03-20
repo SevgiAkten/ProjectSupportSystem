@@ -4,27 +4,25 @@
 	ViewData["Title"] = "Index";
 }
 
-<h1>Destek Unsurları</h1>
+<h4>Destek Unsurları</h4>
+<hr />
 
-<p>
-	<a asp-action="Create">Yeni Ekle</a>
-</p>
 <table class="table">
 	<thead>
 		<tr>
 			<th>
-				Adı
+				@Html.DisplayNameFor(model => model.SupportElementName)
 			</th>
 			<th>
-				Oranı (%)
+				@Html.DisplayNameFor(model => model.SupportElementPercentage)
 			</th>
 			<th>
-				Miktarı (TL)
+				@Html.DisplayNameFor(model => model.SupportElementAmount)
 			</th>
 			<th>
-				Açıklama
+				@Html.DisplayNameFor(model => model.Description)
 			</th>
-			<th></th>
+			<th><a asp-action="AddOrUpdate" class="btn btn-outline-success"><i class="fa fa-plus-square"></i> Destek Unsuru</a><i></i></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -44,9 +42,8 @@
 					@Html.DisplayFor(modelItem => item.Description)
 				</td>
 				<td>
-					<a asp-action="Edit" asp-route-id="@item.ID">Düzenle</a> |
-					<a asp-action="Details" asp-route-id="@item.ID">Detaylar</a> |
-					<a asp-action="Delete" asp-route-id="@item.ID">Sil</a>
+					<a asp-action="AddOrUpdate" asp-route-id="@item.ID"><i class="fa fa-marker fa-lg"></i> Düzenle</a> |
+					<a asp-action="Delete" asp-route-id="@item.ID" class="text-danger ml-1" onclick="return confirm('Bu destek unsurunu silmek istediğinize emin misiniz?')"><i class="fa fa-trash-alt fa-lg"></i> Sil</a>
 				</td>
 			</tr>
 		}
