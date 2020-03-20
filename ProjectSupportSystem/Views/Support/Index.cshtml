@@ -1,91 +1,90 @@
 ﻿@model IEnumerable<ProjectSupportSystem.Models.Support>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
-<h1>Destek</h1>
+<h4>Destek Unsurları</h4>
+<hr />
 
-<p>
-    <a asp-action="Create">Yeni Ekler</a>
-</p>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                 Türü
-            </th>
-            <th>
-                Adı
-            </th>
-            <th>
-                Kimler Başvurabilir?
-            </th>
-            <th>
-                Amacı
-            </th>
-            <th>
-                Başvuru Süreci ve Şekli
-            </th>
-            <th>
-                 Süresi (Ay)
-            </th>
-            <th>
-                Oranı (%)
-            </th>
-            <th>
-                Miktarı (TL)
-            </th>
-            <th>
-                Kodu
-            </th>
-          
-            <th>
-                Açıklaması
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SupportType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SupportName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WhoApply)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Goal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApplicationProcessAndCondition)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SupportDuration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SupportPercentage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SupportAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Code)
-            </td>
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.SupportType)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.SupportName)
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Düzenle</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Detaylar</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Sil</a>
-            </td>
-        </tr>
-}
-    </tbody>
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.WhoApply)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Goal)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.ApplicationProcessAndCondition)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.SupportDuration)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.SupportPercentage)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.SupportAmount)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Code)
+			</th>
+
+			<th>
+				@Html.DisplayNameFor(model => model.Description)
+			</th>
+			<th> <a asp-action="AddOrUpdate" class="btn btn-outline-success"><i class="fa fa-plus-square"></i> Destek</a></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.SupportType)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.SupportName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.WhoApply)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Goal)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.ApplicationProcessAndCondition)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.SupportDuration)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.SupportPercentage)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.SupportAmount)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Code)
+				</td>
+
+				<td>
+					@Html.DisplayFor(modelItem => item.Description)
+				</td>
+				<td>
+					<a asp-action="AddOrUpdate" asp-route-id="@item.ID"><i class="fa fa-marker fa-lg"></i> Düzenle</a> |
+					<a asp-action="Delete" asp-route-id="@item.ID" class="text-danger ml-1" onclick="return confirm('Bu desteği  silmek istediğinize emin misiniz?')"><i class="fa fa-trash-alt fa-lg"></i> Sil</a>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>
