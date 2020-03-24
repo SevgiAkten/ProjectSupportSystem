@@ -28,7 +28,16 @@ namespace ProjectSupportSystem.Controllers
 		// GET: Support/Create
 		public IActionResult AddOrUpdate(int id = 0)
 		{
-			var SupportElements = _context.SupportElements.ToListAsync();
+
+			var SupportElements = new List<SelectListItem>();
+			foreach (var supportElement in _context.SupportElements.ToList())
+			{
+				SupportElements.Add(new SelectListItem
+				{
+					Text = supportElement.SupportElementName,
+					Value = supportElement.ID.ToString()
+				});
+			}
 
 			if (SupportElements != null)
 			{
@@ -56,14 +65,52 @@ namespace ProjectSupportSystem.Controllers
 		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> AddOrUpdate([Bind("SupportType,SupportName,WhoApply,Goal,ApplicationProcessAndCondition,SupportDuration,SupportPercentage,SupportAmount,Code,SupportSupElementID,ID,Description")] Support support)
+		public async Task<IActionResult> AddOrUpdate([Bind("SupportType,SupportName,WhoApply,Goal,ApplicationProcessAndCondition,SupportDuration,SupportPercentage,SupportAmount,Code,SupportSupElementID,ID,Description")] Support support, string[] SupportElements)
 		{
 			if (ModelState.IsValid)
 			{
 				if (support.ID == 0)
+				{
 					_context.Add(support);
+					await _context.SaveChangesAsync();
+					foreach (var supportElementId in SupportElements)
+					{
+						var SupportSupElement = new SupportSupElement
+						{
+							SupportID = support.ID,
+							SupportElementID = Convert.ToInt32(supportElementId)
+						};
+						_context.Add(SupportSupElement);
+					}
+				}
 				else
+				{
+					foreach (var supportElementId in SupportElements)
+					{
+						var id = Convert.ToInt32(supportElementId);
+						var supportSupElement = _context.SupportSupElements.FirstOrDefault(x => x.SupportElementID == id);
+						if (supportSupElement != null)
+						{
+							supportSupElement.SupportID = support.ID;
+							supportSupElement.SupportElementID = id;
+							_context.Update(supportSupElement);
+
+						}
+						else
+						{
+							var SupportSupElement = new SupportSupElement
+							{
+								SupportID = support.ID,
+								SupportElementID = id
+							};
+							_context.Add(SupportSupElement);
+
+						}						
+					}
+
 					_context.Update(support);
+
+				}
 				await _context.SaveChangesAsync();
 				return RedirectToAction(nameof(Index));
 			}
