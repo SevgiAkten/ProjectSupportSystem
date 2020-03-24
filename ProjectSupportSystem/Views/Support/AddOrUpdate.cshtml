@@ -3,13 +3,66 @@
 @{
 	ViewData["Title"] = "Create";
 }
+<style>
+	#supportElements {
+		padding: 0 20px
+	}
 
+		#supportElements:last-child {
+			border-bottom: 1px solid #BBB;
+		}
+
+		#supportElements > input {
+			display: none;
+		}
+
+		#supportElements i {
+			display: inline-block;
+			float: right;
+			padding: 2px;
+			width: 40px;
+			height: 20px;
+			border-radius: 13px;
+			vertical-align: middle;
+			-webkit-transition: .25s .09s;
+			transition: .25s .09s;
+			position: relative;
+			background: #d8d9db;
+			box-sizing: initial;
+		}
+
+			#supportElements i:after {
+				content: " ";
+				display: block;
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				background: #fff;
+				position: absolute;
+				left: 2px;
+				-webkit-transition: .25s;
+				transition: .25s;
+			}
+
+		#supportElements > input:checked + i {
+			background: #4bd865;
+		}
+
+			#supportElements > input:checked + i:after {
+				-webkit-transform: translateX(20px);
+				transform: translateX(20px);
+			}
+
+		#supportElements:hover {
+			cursor: pointer;
+		}
+</style>
 
 <h4>Destek Formu</h4>
 <hr />
 <div class="row">
-	<div class="col-md-4">
-		<form asp-action="Create">
+	<div class="col-md-6">
+		<form asp-action="AddOrUpdate">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<input type="hidden" asp-for="ID" />
 			<div class="form-group">
@@ -63,6 +116,18 @@
 				<input asp-for="Description" class="form-control" />
 				<span asp-validation-for="Description" class="text-danger"></span>
 			</div>
+			<div class="form-group">
+				<label>Destek Unsurları</label>
+				<label id="supportElements">
+					<span style="padding-right: 10px">Hepsini Seç / Temizle </span>
+					<input type="checkbox" id="hepsiniSec"><i></i>
+				</label>
+				<select name="SupportElements[]"
+						id="select2"
+						multiple="multiple"
+						class="form-control "
+						asp-items="ViewBag.SupportElements"></select>
+			</div>
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<input type="submit" value="Kaydet" class="btn btn-primary btn-block" />
@@ -75,6 +140,23 @@
 	</div>
 </div>
 
+
+<script>
+	$(function () {
+		//select2 eklentimizin tanımı
+		$('#select2').select2();
+		//hepsiniSec kodlarımız
+		$("#hepsiniSec").on("click", function () {
+			if ($(this).is(':checked')) {
+				$("#select2 > option").prop("selected", "selected");
+				$("#select2").trigger("change");
+			} else {
+				$("#select2 > option").removeAttr("selected");
+				$("#select2").trigger("change");
+			}
+		});
+	});
+</script>
 
 @section Scripts {
 	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
