@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,50 @@ namespace ProjectSupportSystem.Controllers
 		{
 			return View(await _context.Supports.ToListAsync());
 		}
+
+		public async Task<IActionResult> Support(string supportType)
+		{
+
+			var supportList = await _context.Supports.ToListAsync();
+
+			if (supportType == "KOSGEB")
+				supportList = await _context.Supports.Where(x => x.SupportType == "KOSGEB").ToListAsync();
+			else if (supportType == "TÜBİTAK")
+				supportList = await _context.Supports.Where(x => x.SupportType == "TÜBİTAK" || x.SupportType == "TÜBİTAK TEYDEB").ToListAsync();
+			else if (supportType == "TİCARET BAKANLIĞI")
+				supportList = await _context.Supports.Where(x => x.SupportType == "TİCARET BAKANLIĞI").ToListAsync();
+
+			return View(supportList);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Search(IFormCollection formCode)
+		{
+			bool kosgeb = Convert.ToBoolean(formCode["kosgeb"].ToString());
+			bool tubitak = Convert.ToBoolean(formCode["tubitak"].ToString());
+			bool ticbak = Convert.ToBoolean(formCode["ticbak"].ToString());
+			decimal minAmount = Convert.ToDecimal(formCode["minAmount"].ToString());
+			decimal maxAmount = Convert.ToDecimal(formCode["maxAmount"].ToString());
+			decimal minDuration = Convert.ToDecimal(formCode["minDuration"].ToString());
+			decimal maxDuration = Convert.ToDecimal(formCode["maxDuration"].ToString());
+			decimal minPercentage = Convert.ToDecimal(formCode["minPercentage"].ToString());
+			decimal maxPercentage = Convert.ToDecimal(formCode["minPercentage"].ToString());
+
+			var supportList = await _context.Supports.ToListAsync();
+
+			//TODO: ARAMA SEÇENEKLERİNE GÖRE KOŞULLAR YAILACAK
+
+			//if (kosgeb == "true")
+			//{
+			//	if(minAmount!=null && maxAmount != null)
+			//	{
+			//		supportList= await _context.Supports.Where(x=>x.SupportType=="KOSGEB" && mi x.SupportDuration).ToListAsync();
+			//	}
+			//}
+
+			return View(supportList);
+		}
+
 
 
 		// GET: Support/Create
@@ -105,7 +150,7 @@ namespace ProjectSupportSystem.Controllers
 							};
 							_context.Add(SupportSupElement);
 
-						}						
+						}
 					}
 
 					_context.Update(support);
